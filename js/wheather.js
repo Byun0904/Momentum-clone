@@ -21,4 +21,4 @@ function onGeoError() {
 }
 
 // navigator.geolocation.getCurrentPosition() 함수는 wifi, 위치, gps 등의 정보를 가져올 수 있게 해주는 함수이다.
-navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError);
+//navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError);

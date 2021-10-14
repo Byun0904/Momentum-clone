@@ -8,6 +8,7 @@
     <title>Momentum App</title>
   </head>
   <body>
+    <h2 class="clock">00:00:00</h2>
     <form class="login-form hidden">
       <input
         required
@@ -15,12 +16,14 @@
         type="text"
         placeholder="What is your name?"
       />
-      <button>Log In</button>
     </form>
-    <h2 class="clock">00:00:00</h2>
     <h1 id="greeting" class="hidden"></h1>
     <form class="todo-form">
-      <input type="text" required placeholder="오늘의 일정을 입력하세요." />
+      <input
+        type="text"
+        required
+        placeholder="Please enter today's schedule."
+      />
     </form>
     <ul class="todo-list"></ul>
     <div class="quote">
