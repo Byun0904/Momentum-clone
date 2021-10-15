@@ -3,6 +3,9 @@ const toDoInput = toDoForm.querySelector("input");
 const toDoList = document.querySelector(".todo-list");
 
 const TODOS_KEY = "todos";
+const HIDDEN = "hidden";
+const UNHIDDEN = "unHideen";
+const FORMHIDDEN = "formHidden";
 
 let toDos = [];
 
@@ -16,17 +19,22 @@ function deleteTodo(event) {
   const li = event.target.parentElement;
   li.remove();
   toDos = toDos.filter((toDo) => toDo.id !== parseInt(li.id));
+  toDoForm.classList.remove(HIDDEN);
+  localStorage.setItem(FORMHIDDEN, UNHIDDEN);
   saveToDos();
 }
 
 function paintTodo(newTodo) {
   const li = document.createElement("li");
   li.id = newTodo.id;
+  const h3 = document.createElement("h3");
+  h3.innerText = "TODAY";
   const span = document.createElement("span");
   span.innerText = newTodo.text;
   const button = document.createElement("button");
-  button.innerText = "❌";
+  button.innerText = "🗑";
   button.addEventListener("click", deleteTodo);
+  li.appendChild(h3);
   li.appendChild(span);
   li.appendChild(button);
   toDoList.appendChild(li);
@@ -38,15 +46,24 @@ function handleToDoSubmit(event) {
   const newTodo = toDoInput.value;
   toDoInput.value = "";
   const newTodoObj = {
-    text: newTodo,
     id: Date.now(),
+    text: newTodo,
   };
   toDos.push(newTodoObj);
+  toDoForm.classList.add(HIDDEN);
+  localStorage.setItem(FORMHIDDEN, HIDDEN);
   paintTodo(newTodoObj);
-  saveToDos();
 }
 
 toDoForm.addEventListener("submit", handleToDoSubmit);
+
+const formHidden = localStorage.getItem(FORMHIDDEN);
+
+if (formHidden == null || formHidden == UNHIDDEN) {
+  toDoForm.classList.remove(HIDDEN);
+} else {
+  toDoForm.classList.add(HIDDEN);
+}
 
 const savedToDos = localStorage.getItem(TODOS_KEY);
 
