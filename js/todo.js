@@ -16,7 +16,7 @@ function saveToDos() {
 }
 
 function deleteTodo(event) {
-  const li = event.target.parentElement;
+  //const li = event.target.parentElement;
   const readToDos = localStorage.getItem(TODOS_KEY);
   const parseToDos = JSON.parse(readToDos);
   const id = parseToDos[0].id.toString();
