@@ -17,8 +17,12 @@ function saveToDos() {
 
 function deleteTodo(event) {
   const li = event.target.parentElement;
-  li.remove();
-  toDos = toDos.filter((toDo) => toDo.id !== parseInt(li.id));
+  const readToDos = localStorage.getItem(TODOS_KEY);
+  const parseToDos = JSON.parse(readToDos);
+  const id = parseToDos[0].id.toString();
+  const liId = document.getElementById(`${id}`);
+  liId.remove();
+  toDos = toDos.filter((toDo) => toDo.id !== parseInt(liId.id));
   toDoForm.classList.remove(HIDDEN);
   localStorage.setItem(FORMHIDDEN, UNHIDDEN);
   saveToDos();
@@ -29,14 +33,16 @@ function paintTodo(newTodo) {
   li.id = newTodo.id;
   const h3 = document.createElement("h3");
   h3.innerText = "TODAY";
+  const div = document.createElement("div");
   const span = document.createElement("span");
   span.innerText = newTodo.text;
   const button = document.createElement("button");
-  button.innerText = "🗑";
+  button.innerHTML = '<i class="fas fa-trash-alt"></i>';
   button.addEventListener("click", deleteTodo);
   li.appendChild(h3);
-  li.appendChild(span);
-  li.appendChild(button);
+  li.appendChild(div);
+  div.appendChild(span);
+  div.appendChild(button);
   toDoList.appendChild(li);
   saveToDos();
 }
